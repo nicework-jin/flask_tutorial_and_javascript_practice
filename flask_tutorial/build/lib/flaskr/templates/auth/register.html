@@ -1,0 +1,23 @@
+<!--
+  base.html을 상속받는다. jinja 템플릿은 block을 통해 base template을 상속 받을 수 있다.
+  이를 통해 중복되는 코드를 줄일 수 있다.
+-->
+{% extends 'base.html' %}
+
+{% block header %}
+  <!--
+    아래와 같은 형식을 통해 base.html에 존재하는 두 개의 block에 대해
+    동일한 데이터를 한 번에 넘겨줄 수 있다.
+  -->
+  <h1>{% block title %}Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="username">Username</label>
+    <input name="username" id="username">
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password">
+    <input type="submit" value="Register">
+  </form>
+{% endblock %}
