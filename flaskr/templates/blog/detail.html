@@ -1,0 +1,57 @@
+<script src="{{ url_for('static', filename='js/detail.js') }}" defer></script>
+
+{% extends 'base.html' %}
+
+{% block header %}
+    <header class="header_detail">
+        <div class="head_content">
+            <span class="title">{% block title %} {{ post['title']}} {% endblock %} </span>
+            <span class="writer"> created by {{ post['username']}} </span>
+        </div>
+        <div class="head_like">
+            {% if liked[0] == 0 %}
+                <button class="likeBtn" value="{{ post['id'] }}" data-value="{{ liked[0] }}"><i class="fas fa-heart"></i></button>
+            {% else %}
+                <button class="likeBtn clicked" value="{{ post['id'] }}" data-value="{{ liked[0] }}"><i class="fas fa-heart"></i></button>
+            {% endif %}
+            <span id="likes"> {{ post['likes'] }} </span>
+        </div>
+   </header>
+{% endblock %}
+
+{% block content %}
+    <article class="content_detail">
+        <ul class="tags">
+            {% for tag in tags%}
+                <li><a href="#"> #{{tag[0]}} </a></li>
+            {% endfor %}
+        </ul>
+        <span> {{post['body']}} </span>
+    </article>
+{% endblock %}
+
+{% block content02 %}
+    <form class="comment_registration" id="commentForm" onsubmit="return false" >
+        <input type="text" id="commentInput" data-post-id="{{ post['id'] }}" placeholder="Enter your comment...">
+        <button type="submit" id="commentSubmit">전송</button>
+    </form>
+
+    <table class="comment_list" >
+        <thead>
+            <tr>
+                <td> <strong>순서</strong> </td>
+                <td> <strong>작성자</strong> </td>
+                <td> <strong>댓글</strong> </td>
+            </tr>
+        </thead>
+        <tbody id="commentShow">
+            {% for comment in comments %}
+                <tr>
+                    <td> {{comment[0]}} </td>
+                    <td> {{comment[1]}} </td>
+                    <td> {{comment[2]}} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
